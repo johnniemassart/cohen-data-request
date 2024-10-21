@@ -4,7 +4,7 @@ import { queryApi } from "sec-api";
 import { useDispatch } from "react-redux";
 import { updateUserInput } from "../../redux/apiSlice";
 
-const HomeInput = () => {
+const HomeInput = ({ updateInitialSubmit }) => {
   const [input, setInput] = useState("");
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -13,17 +13,30 @@ const HomeInput = () => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(updateUserInput({ userInput: input }));
+    updateInitialSubmit();
   };
   return (
-    <div className="home-input-wrapper">
+    <>
       <input
         type="text"
         value={input}
         onChange={handleInput}
+        onKeyDown={(e) => {
+          if (e.key == "Enter") {
+            handleClick(e);
+          }
+        }}
         className="home-input"
+        placeholder="endpoint, enter."
       />
-      <button onClick={handleClick}>click</button>
-    </div>
+      <button
+        onClick={handleClick}
+        disabled={!input}
+        className="home-input-btn"
+      >
+        &#x2191;
+      </button>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@
 }
 
 :root {
-  background-color: black;
+  background: rgb(30, 30, 30);
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

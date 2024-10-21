@@ -68,7 +68,7 @@ const HomeApiResults = () => {
                 className="api-ind-overflow-wrapper"
                 style={{
                   backgroundColor:
-                    idx % 2 === 1 ? "rgb(0,0,0)" : "rgb(25,25,25)",
+                    idx % 2 === 1 ? "rgb(15,15,15)" : "rgb(25,25,25)",
                 }}
               >
                 <ApiResults item={item} key={idx} />
