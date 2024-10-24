@@ -14,6 +14,7 @@ const HomeInput = ({ updateInitialSubmit }) => {
     e.preventDefault();
     dispatch(updateUserInput({ userInput: input }));
     updateInitialSubmit();
+    setInput("");
   };
   return (
     <>

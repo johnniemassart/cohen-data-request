@@ -41,6 +41,10 @@
   margin-bottom: 8px;
 }
 
+.home-filter {
+  color: white;
+}
+
 .home-header {
   color: white;
 }
@@ -102,46 +106,92 @@
 }
 
 /*    ***    */
-/* returned data css */
+/* returned data css - HomeApiResults */
 /*    ***    */
 
 .home-wrapper-grid-api-wrapper {
-  grid-area: content;
   /* border: 1px solid orange; */
+  grid-area: content;
   overflow: scroll;
   /* display: flex;
   justify-content: center; */
 }
 
-.home-api-results-wrapper {
-  /* border: 1px solid palegoldenrod; */
+/*    ***    */
+/* returned data css - HomeApiResults */
+/*    ***    */
+
+.home-api-table-wrapper {
   color: white;
-  /* margin: 0 auto; */
-  /* margin: 0px 20px; */
-  /* overflow-x: scroll; */
-}
-
-.column-names-wrapper {
-  /* border: 1px solid yellow; */
+  border: 1px solid purple;
   display: flex;
-  background-color: rgb(15, 15, 15);
+  justify-content: flex-start;
 }
 
-.column-name-ind-wrapper {
-  flex: 1;
+table {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+  /* table-layout: auto; */
+  /* min-width: max-content; */
 }
 
-.api-ind-wrapper {
+tr {
+  /* display: flex; */
+  /* width: fit-content; */
+  /* border: 1px solid orange; */
+}
+
+/* tbody {
+  border-bottom: 1px solid lightgray;
+} */
+
+th {
   /* border: 1px solid green; */
-  width: max-content;
-  /* this containts the width for each row to take up the entire container */
+  /* padding: 6px 4px; */
 }
 
-.api-ind-overflow-wrapper {
-  display: flex;
+td {
+  /* border: 1px solid lime; */
+  /* width: fit-content; */
 }
 
-.key-value-wrapper {
-  /* border: 1px solid purple; */
-  flex: 1;
+.api-column-header {
+  position: relative;
+  /* width: 20px; */
+  /* border: 1px solid olive; */
+}
+
+.resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 5px;
+  background-color: purple;
+  opacity: 0;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+  border-radius: 6px;
+}
+
+.api-column-header:hover > .resizer {
+  opacity: 1;
+}
+
+.resizer.isResizing {
+  background-color: orange;
+  opacity: 1;
+}
+
+.api-data-row {
+  /* border: 1px solid red; */
+  /* display: flex; */
+  /* width: min(10px, 100%); */
+}
+
+.api-data-cell {
+  /* border: 1px solid brown; */
+  /* min-width: 10px; */
+  /* max-width: 200px; */
 }

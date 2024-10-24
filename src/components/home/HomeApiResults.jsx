@@ -19,13 +19,14 @@ const HomeApiResults = () => {
   useEffect(() => {
     if (data) {
       // alter width to each be the same size according to largest child
-      const maxWidth = Math.max(
-        ...rowRef.current.map((child) => child.offsetWidth)
-      );
-      rowRef.current.forEach((child) => {
-        child.style.width = `${maxWidth}px`;
-      });
+      //   const maxWidth = Math.max(
+      //     ...rowRef.current.map((child) => child.offsetWidth)
+      //   );
+      //   rowRef.current.forEach((child) => {
+      //     child.style.width = `${maxWidth}px`;
+      //   });
       // return all column names
+      setColumnNames([]);
       const addColumnNames = (obj) => {
         for (const key in obj) {
           if (typeof obj[key] === "object" && obj[key] !== null) {
@@ -37,16 +38,16 @@ const HomeApiResults = () => {
       };
       addColumnNames(data[0]);
       // column ref is equal to row ref
-      columnRef.current.style.width = `${maxWidth}px`;
+      //   columnRef.current.style.width = `${maxWidth}px`;
     }
-  }, [isSuccess]);
+  }, [data]);
   return (
     <div className="home-api-results-wrapper">
       {data && (
         <div className="column-names-wrapper" ref={columnRef}>
           {columnNames?.map((name, idx) => {
             return (
-              <div className="column-name-ind-wrapper">
+              <div className="column-name-ind-wrapper" key={idx}>
                 <p key={idx} style={{ color: "white" }}>
                   {name}
                 </p>
@@ -83,11 +84,11 @@ const HomeApiResults = () => {
 const ApiResults = ({ item }) => {
   return (
     <>
-      {Object.entries(item).map(([key, value]) =>
+      {Object.entries(item).map(([key, value], idx) =>
         typeof value === "object" ? (
-          <ApiResults item={value} key={key} />
+          <ApiResults item={value} key={`${idx}, ${value}`} />
         ) : (
-          <div className="key-value-wrapper" key={value}>
+          <div className="key-value-wrapper" key={`${idx}, ${value}`}>
             <p style={{ color: "white" }}>{value}</p>
           </div>
         )
