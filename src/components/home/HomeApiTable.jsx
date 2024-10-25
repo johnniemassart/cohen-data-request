@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { CSVLink } from "react-csv";
 
 const HomeApiTable = () => {
   // user Input from redux
@@ -67,20 +67,6 @@ const HomeApiTable = () => {
         }
       };
       rows(data);
-      //   // ***
-      //   // overflow
-      //   // ***
-      //   const checkOverFlow = () => {
-      //     const { clientWidth, scrollWidth } = containerRef.current;
-      //     setIsOverflowing(scrollWidth > clientWidth);
-      //   };
-      //   checkOverFlow();
-      //   window.addEventListener("resize", checkOverFlow);
-
-      //   // Cleanup the event listener on component unmount
-      //   return () => {
-      //     window.removeEventListener("resize", checkOverFlow);
-      //   };
     }
   }, [data]);
   // store values in tanstack react table
@@ -90,56 +76,86 @@ const HomeApiTable = () => {
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
   });
+  useEffect(() => {
+    //   // ***
+    //   // overflow
+    //   // ***
+    const checkOverFlow = () => {
+      const { clientWidth, scrollWidth } = containerRef.current;
+      setIsOverflowing(scrollWidth > clientWidth);
+    };
+    checkOverFlow();
+    window.addEventListener("resize", checkOverFlow);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", checkOverFlow);
+    };
+  }, [dataRows]);
   return (
     <div
       className="home-api-table-wrapper"
-      //   ref={containerRef}
-      //   style={{ justifyContent: isOverflowing ? "flex-start" : "center" }}
+      ref={containerRef}
+      style={{ justifyContent: isOverflowing ? "flex-start" : "center" }}
     >
-      <table style={{ width: table.getTotalSize() }}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup, idx) => (
-            <tr key={idx} className="api-column-row">
-              {headerGroup.headers.map((header, idx) => (
-                <th
-                  key={`${header}, ${idx}`}
-                  className="api-column-header"
-                  style={{
-                    width: header.getSize(),
-                  }}
-                >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                  <div
-                    className={`resizer ${
-                      header.column.getIsResizing() ? "isResizing" : ""
-                    }`}
-                    onMouseDown={header.getResizeHandler()}
-                    onTouchStart={header.getResizeHandler()}
-                  />
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row, idx) => (
-            <tr key={idx} className="api-data-row">
-              {row.getVisibleCells().map((cell, idx) => (
-                <td
-                  key={`${cell}, ${idx}`}
-                  className="api-data-cell"
-                  style={{ width: cell.column.getSize() }}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="table-padding-wrapper">
+        <div className="csv-wrapper">
+          <CSVLink data={dataRows} className="csv-export">
+            export
+          </CSVLink>
+        </div>
+        <table style={{ width: table.getTotalSize() }}>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup, idx) => (
+              <tr key={idx} className="api-column-row">
+                {headerGroup.headers.map((header, idx) => (
+                  <th
+                    key={`${header}, ${idx}`}
+                    className="api-column-header"
+                    style={{
+                      width: header.getSize(),
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    <div
+                      className={`resizer ${
+                        header.column.getIsResizing() ? "isResizing" : ""
+                      }`}
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                    />
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row, idx) => (
+              <tr
+                key={idx}
+                className="api-data-row"
+                style={{
+                  backgroundColor:
+                    idx % 2 === 0 ? "rgb(30,30,30)" : "rgb(20,20,20)",
+                }}
+              >
+                {row.getVisibleCells().map((cell, idx) => (
+                  <td
+                    key={`${cell}, ${idx}`}
+                    className="api-data-cell"
+                    style={{ width: cell.column.getSize() }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -32,6 +32,7 @@
   position: sticky;
   top: 0;
   background-color: rgb(30, 30, 30);
+  z-index: 1;
 }
 
 .home-header-wrapper {
@@ -123,14 +124,40 @@
 
 .home-api-table-wrapper {
   color: white;
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+}
+
+.table-padding-wrapper {
+  /* border: 1px solid green; */
+  padding: 3px;
+  background-color: rgb(235, 235, 235);
+  border-radius: 4px;
+}
+
+.csv-wrapper {
+  /* border: 1px solid black; */
+  padding: 6px 0px;
+}
+
+.csv-export {
+  text-decoration: none;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  /* border: 1px solid green; */
+  padding: 2px 5px;
+  margin-left: 2px;
+}
+
+.csv-export:hover {
+  cursor: pointer;
 }
 
 table {
-  border: 1px solid lightgray;
+  /* border: 1px solid rgb(80, 80, 80); */
   border-collapse: collapse;
+  /* border-radius: 6px; */
   /* table-layout: auto; */
   /* min-width: max-content; */
 }
@@ -146,12 +173,14 @@ tr {
 } */
 
 th {
-  /* border: 1px solid green; */
-  /* padding: 6px 4px; */
+  border: 1px solid rgb(80, 80, 80);
+  padding: 6px 4px;
+  background-color: rgb(10, 10, 10);
+  text-align: left;
 }
 
 td {
-  /* border: 1px solid lime; */
+  border: 1px solid rgb(80, 80, 80);
   /* width: fit-content; */
 }
 
@@ -167,7 +196,7 @@ td {
   right: 0;
   height: 100%;
   width: 5px;
-  background-color: purple;
+  background-color: rgb(120, 120, 120);
   opacity: 0;
   cursor: col-resize;
   user-select: none;
@@ -180,7 +209,7 @@ td {
 }
 
 .resizer.isResizing {
-  background-color: orange;
+  background-color: black;
   opacity: 1;
 }
 
