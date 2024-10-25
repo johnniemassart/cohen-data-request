@@ -5,6 +5,8 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  getFilteredRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { CSVLink } from "react-csv";
 
@@ -70,11 +72,18 @@ const HomeApiTable = () => {
     }
   }, [data]);
   // store values in tanstack react table
+  const [filtering, setFiltering] = useState("");
   const table = useReactTable({
     data: dataRows,
     columns: columnNames,
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    state: {
+      globalFilter: filtering,
+    },
+    onGlobalFilterChange: setFiltering,
   });
   useEffect(() => {
     //   // ***
@@ -99,7 +108,13 @@ const HomeApiTable = () => {
       style={{ justifyContent: isOverflowing ? "flex-start" : "center" }}
     >
       <div className="table-padding-wrapper">
-        <div className="csv-wrapper">
+        <div className="header-supplement-wrapper">
+          <input
+            type="text"
+            value={filtering}
+            onChange={(e) => setFiltering(e.target.value)}
+            className="filter-input"
+          />
           <CSVLink data={dataRows} className="csv-export">
             export
           </CSVLink>
@@ -155,6 +170,32 @@ const HomeApiTable = () => {
             ))}
           </tbody>
         </table>
+        <div className="pagination-buttons-wrapper">
+          <button
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            first page
+          </button>
+          <button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            previous page
+          </button>
+          <button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            next page
+          </button>
+          <button
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            last page
+          </button>
+        </div>
       </div>
     </div>
   );
