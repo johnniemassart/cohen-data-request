@@ -111,7 +111,7 @@ const HomeApiTable = () => {
         <div className="header-supplement-wrapper">
           <input
             type="text"
-            placeholder="filter"
+            placeholder="filter..."
             value={filtering}
             onChange={(e) => setFiltering(e.target.value)}
             className="filter-input"
