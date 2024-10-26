@@ -111,11 +111,25 @@ const HomeApiTable = () => {
         <div className="header-supplement-wrapper">
           <input
             type="text"
+            placeholder="filter"
             value={filtering}
             onChange={(e) => setFiltering(e.target.value)}
             className="filter-input"
           />
-          <CSVLink data={dataRows} className="csv-export">
+          <CSVLink
+            data={
+              filtering === ""
+                ? dataRows
+                : dataRows.filter((data) =>
+                    Object.values(data).some((value) =>
+                      String(value)
+                        .toLowerCase()
+                        .includes(filtering.toLowerCase())
+                    )
+                  )
+            }
+            className="csv-export"
+          >
             export
           </CSVLink>
         </div>
